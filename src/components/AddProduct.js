@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';export class AddProduct extends Component {
     state={
-        // 'id_product':'',
-        // 'id_category':'',
-        // 'stock':'',
-        // 'price':'',
-        // 'total':'',
-        // 'created_at':new Date(),
-        // 'updated_at':new Date()
-        'name' : '',
-        'writer' : '',
-        'description' : '',
-        'publisher' : '',
-        'year' : '',
-        'stock' : '',
-        'genre' : '',
+        'id_product':'',
+        'user':'',
+        'stock':'',
+        'price':'',
+        'total':'',
         'created_at':new Date(),
         'updated_at':new Date()
+        // 'name' : '',
+        // 'writer' : '',
+        // 'description' : '',
+        // 'publisher' : '',
+        // 'year' : '',
+        // 'stock' : '',
+        // 'genre' : '',
+        // 'created_at':new Date(),
+        // 'updated_at':new Date()
     }
     // handlerChange=(e)=>{
     //     this.setState({[e.target.name] : e.target.value})
