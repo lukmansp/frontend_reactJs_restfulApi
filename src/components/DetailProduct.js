@@ -15,6 +15,9 @@ class DetailProduct extends Component {
     // state = {
     //     id: ''
     // }
+    state = {
+        products: []
+    }
     idProduct = event => {
         this.setState({
             id: event.target.value
@@ -25,8 +28,7 @@ class DetailProduct extends Component {
         axios
             .delete(`http://127.0.0.1:9009/product/${this.props.product.id}`)
             .then(response => {
-                //this.setState({ ArrProductsId: response.data.result });
-                // this.componentDidMount();
+                this.componentDidMount();
                 console.log(response);
             })
             .catch(console.log);
@@ -57,14 +59,45 @@ class DetailProduct extends Component {
             url: "http://localhost:9009/order/",
             data: data
         })
-            .then(res => {
-                console.log(res)
+            .then(response => {
+                this.componentDidMount(
+                    axios
+                        .get("http://localhost:9009/product/")
+                        .then(response => {
+                            this.setState({ products: response.data.result })
+                        })
+                );
             })
             .catch(err => {
                 console.log(err)
             })
     }
+    changeImage = event => {
+        console.log(event.target.files[0]);
+        console.log(event.target.files);
+        this.setState({
+            image: event.target.files[0]
+        });
+    };
+
+    editProduct = () => {
+
+        // console.log("disini");
+        const data = new FormData();
+        data.append("name", this.state.name);
+        data.append("description", this.state.description);
+        data.append("image", this.state.image);
+        data.append("category_id", this.state.category_id);
+        data.append("price", this.state.price);
+        console.log("masuk sini")
+        data.append("stock", this.state.stock);
+        console.log(this.state);
+
+        axios.patch(`http://localhost:9009/product/${this.props.product.id}`, data);
+    };
+
     componentDidMount() {
+
     }
 
     render() {
@@ -82,7 +115,7 @@ class DetailProduct extends Component {
                             User:<input onChange={this.onChange} type="text" className="form-control" name="user" placeholder="Enter name" />
                             stock:<input onChange={this.onChange} type="text" className="form-control" name="quantity" placeholder="Enter name" />
                             Price:<input onChange={this.onChange} type="text" className="form-control" name="price" placeholder="Enter name" readOnly value={this.props.product.price} />
-                            <button className="btn btn-primary">Save</button>
+                            <button className="btn btn-primary">Order</button>
                             <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -93,7 +126,7 @@ class DetailProduct extends Component {
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input  type="text" className="form-control" name="id" placeholder="Enter name" value={this.props.product.id} readOnly onChange={this.idProduct} />
+                                            <input type="text" className="form-control" name="id" placeholder="Enter name" value={this.props.product.id} readOnly onChange={this.idProduct} />
 
                                             Name : <input onChange={this.onChange} type="text" className="form-control" name="id_product" placeholder="Enter name" value={this.props.product.name} readOnly />
 
@@ -104,6 +137,38 @@ class DetailProduct extends Component {
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this.deleteProduct}>Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="staticBackdropEdit" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" className="form-control" name="id" placeholder="Enter name" value={this.props.product.id} readOnly onChange={this.idProduct} />
+
+                                            Name : <input onChange={this.onChange} type="text" className="form-control" name="id_product" placeholder="Enter name" value={this.props.product.name} readOnly />
+
+                                            Price:<input onChange={this.onChange} type="text" className="form-control" name="price" placeholder="Enter name" readOnly value={this.props.product.price} />
+                                            <input type="text" class="form-control" id="recipient-name" name="name" onChange={this.onChange} placeholder="Enter product" /><br></br>
+                                            <input type="text" class="form-control" id="recipient-name" name="description" onChange={this.onChange} placeholder="description" />
+                                            <label for="recipient-name" class="col-form-label">image:</label>
+                                            <input type="file" class="form-control" id="recipient-name" onChange={this.changeImage} /><br></br>
+                                            <input type="text" class="form-control" id="recipient-name" name="category" onChange={this.onChange} placeholder="category" /><br></br>
+                                            <input type="text" class="form-control" id="recipient-name" name="price" onChange={this.onChange} placeholder="price" /><br></br>
+                                            <input type="text" class="form-control" id="recipient-name" name="stock" onChange={this.onChange} placeholder="stock" />
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-warning" data-dismiss="modal" onClick={this.editProduct}>Edit</button>
                                         </div>
                                     </div>
                                 </div>

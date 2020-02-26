@@ -30,9 +30,9 @@ const CardProduct = ({ product, selectProductItem }) => {
                     <div className="card-body">
                         <img src={product.image} alt="..." style={{ height: "200px", width: "200px" }} />
                         <h5 className="card-title">{product.name}</h5>
-                        <p className="card-text">{product.price}</p><hr></hr>
+                        <p className="card-text">Price: {product.price} | | Stock : {product.stock}</p><hr></hr>
                         <button className="btn btn-primary badge badge-pill badge-info" onClick={selectProduct}><span className="fas fa-cart-plus" style={{ width: "40px" }}></span></button>
-                        <button className="btn btn-primary badge badge-pill badge-warning" onClick={selectProduct}><span className="fas fa-pencil-square-o" style={{ width: "40px" }}></span></button>
+                        <button className="btn btn-primary badge badge-pill badge-warning"><span className="fas fa-pencil-square-o" style={{ width: "40px" }} data-toggle="modal" data-target="#staticBackdropEdit"></span></button>
                         <button className="btn btn-primary badge badge-pill badge-danger" data-toggle="modal" data-target="#staticBackdrop"><span className="fas fa-trash" style={{ width: "40px" }}></span></button>
 
 

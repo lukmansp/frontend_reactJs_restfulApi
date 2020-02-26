@@ -42,10 +42,7 @@ class saveModal extends Component {
         data.append("image", this.state.image);
         data.append("category_id", this.state.category_id);
         data.append("price", this.state.price);
-        console.log("masuk sini")
         data.append("stock", this.state.stock);
-        console.log(this.state);
-
         axios.post("http://localhost:9009/product", data);
     };
     render() {
