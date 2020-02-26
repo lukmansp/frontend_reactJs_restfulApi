@@ -1,6 +1,7 @@
 import React from 'react'
 
 
+
 // const CardProduct = ({ product }) => {
 //     return (
 //         <div className="col-md-3 mt-1 ml-1 card ">
@@ -21,17 +22,26 @@ const CardProduct = ({ product, selectProductItem }) => {
 
     }
 
+
     return (
-        <div className="col-md-4 mt-2">
-            <div className="card">
-            <div className="card-body">
-                <img src={product.image} alt="..." style={{ height: "200px", width:"200px" }} />
-                <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">{product.price}</p>
-                <button className="btn btn-primary badge badge-pill badge-info" onClick={selectProduct}>Add</button>
+        <React.Fragment>
+            <div className="col-md-4 mt-2">
+                <div className="card">
+                    <div className="card-body">
+                        <img src={product.image} alt="..." style={{ height: "200px", width: "200px" }} />
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text">{product.price}</p><hr></hr>
+                        <button className="btn btn-primary badge badge-pill badge-info" onClick={selectProduct}><span className="fas fa-cart-plus" style={{ width: "40px" }}></span></button>
+                        <button className="btn btn-primary badge badge-pill badge-warning" onClick={selectProduct}><span className="fas fa-pencil-square-o" style={{ width: "40px" }}></span></button>
+                        <button className="btn btn-primary badge badge-pill badge-danger" data-toggle="modal" data-target="#staticBackdrop"><span className="fas fa-trash" style={{ width: "40px" }}></span></button>
+
+
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
+
+
+        </React.Fragment>
     )
 }
 export default CardProduct
