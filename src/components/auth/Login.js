@@ -32,7 +32,7 @@ class Login extends Component {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user-id', res.data.id);
                 localStorage.setItem('isAuth', true);
-                this.props.history.push('/dash');
+                this.props.history.push('/');
             })
             .catch(err => {
                 console.log(err);

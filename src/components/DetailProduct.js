@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
-// import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import axios from 'axios'
 class DetailProduct extends Component {
-    // state = {
-    //     'products': [],
-    //     'searchName': '',
-    //     'id_product': '',
-    //     'user': '',
-    //     'quantity': '',
-    //     'price': '',
-    //     selectProduct: null
-    //     // selectProduct: null
-    // }
-    // state = {
-    //     id: ''
-    // }
-    state = {
-        products: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            products: []
+        }
     }
     idProduct = event => {
         this.setState({
@@ -27,9 +16,8 @@ class DetailProduct extends Component {
     deleteProduct = () => {
         axios
             .delete(`http://127.0.0.1:9009/product/${this.props.product.id}`)
-            .then(response => {
-                this.componentDidMount();
-                console.log(response);
+            .then(() => {
+                this.props.history.push('/')
             })
             .catch(console.log);
     };
@@ -60,13 +48,7 @@ class DetailProduct extends Component {
             data: data
         })
             .then(response => {
-                this.componentDidMount(
-                    axios
-                        .get("http://localhost:9009/product/")
-                        .then(response => {
-                            this.setState({ products: response.data.result })
-                        })
-                );
+                this.componentDidMount();
             })
             .catch(err => {
                 console.log(err)
@@ -89,7 +71,6 @@ class DetailProduct extends Component {
         data.append("image", this.state.image);
         data.append("category_id", this.state.category_id);
         data.append("price", this.state.price);
-        console.log("masuk sini")
         data.append("stock", this.state.stock);
         console.log(this.state);
 

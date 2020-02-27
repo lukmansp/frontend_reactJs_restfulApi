@@ -71,9 +71,16 @@ export class DaftarProduct extends Component {
             })
     }
     onChangeSearch = (event) => {
+        const authorization = localStorage.getItem('token');
+        const userId = localStorage.getItem("user-id");
 
         axios
-            .get(`http://localhost:9009/product?name=${event.target.value}`)
+            .get(`http://localhost:9009/product?name=${event.target.value}`,{
+                headers: {
+                    "authorization": authorization,
+                    "user-id": userId
+                }
+            })
             .then(response => {
                 this.setState({ products: response.data.result })
                 console.log(response)
@@ -84,10 +91,17 @@ export class DaftarProduct extends Component {
     }
 
     onChangeKat = (event) => {
+        const authorization = localStorage.getItem('token');
+        const userId = localStorage.getItem("user-id");
         event.preventDefault()
         console.log(event.target.id)
         axios
-            .get(`http://localhost:9009/product?name=${event.target.id}`)
+            .get(`http://localhost:9009/product?name=${event.target.id}`,{
+                headers: {
+                    "authorization": authorization,
+                    "user-id": userId
+                } 
+            })
             .then(response => {
                 this.setState({ products: response.data.result })
                 console.log(response)
@@ -98,10 +112,17 @@ export class DaftarProduct extends Component {
     }
 
     onChangePage = (event) => {
+        const authorization = localStorage.getItem('token');
+        const userId = localStorage.getItem("user-id");
         event.preventDefault()
         console.log(event.target.id)
         axios
-            .get(`http://localhost:9009/product/?pages=${event.target.name}`)
+            .get(`http://localhost:9009/product/?pages=${event.target.name}`, {
+            headers: {
+                "authorization": authorization,
+                "user-id": userId
+            }
+        })
             .then(response => {
                 this.setState({ products: response.data.result })
                 console.log(response)
@@ -114,12 +135,27 @@ export class DaftarProduct extends Component {
 
 
     viewProduct() {
-        axios
-            .get("http://localhost:9009/product/")
+        const authorization = localStorage.getItem('token');
+        const userId = localStorage.getItem("user-id");
+        // axios
+        //     .get("http://localhost:9009/product/")
+        //     .then(response => {
+        //         this.setState({ products: response.data.result })
+        //     })
+        //     .catch(console.log)
+        axios.get('http://localhost:9009/product', {
+            headers: {
+                "authorization": authorization,
+                "user-id": userId
+            }
+        })
             .then(response => {
                 this.setState({ products: response.data.result })
             })
-            .catch(console.log)
+            .catch(err => {
+                console.log(err)
+            })
+
     }
     componentDidMount() {
         this.viewProduct()
@@ -136,7 +172,7 @@ export class DaftarProduct extends Component {
             <Fragment>
                 <div className="">
 
-                    <div className="row mt-3 justify-content-left" style={{ marginLeft: "130px" }}>
+                    <div className="row justify-content-left" style={{ marginLeft: "120px" }}>
                         <form viewProduct={this.viewProduct}>
                             <div className="form-group">
                                 <br />
@@ -170,7 +206,7 @@ export class DaftarProduct extends Component {
                         <div className="col-3">
 
                             <div className="card shadow">
-                                <div className="card-body" style={{ marginTop: "-90px", width: "-200px", height: "870px", backgroundColor: "#f1f1f1" }}>
+                                <div className="card-body" style={{ marginTop: "-112px", width: "-200px", height: "870px", backgroundColor: "#f1f1f1" }}>
                                     <DetailProduct product={this.state.selectProduct} />
                                 </div>
                             </div>
@@ -194,7 +230,7 @@ export class DaftarProduct extends Component {
                                             <li class="page-item" aria-current="page">
                                                 <a class="page-link" onClick={this.onChangePage} name="3">3 <span class="sr-only">(current)</span></a>
                                             </li>
-                                            <li class="page-item" aria-current="page">
+                                            <li class="page-item" aria-current="page">git
                                                 <a class="page-link" onClick={this.onChangePage} name="4">4 <span class="sr-only">(current)</span></a>
                                             </li>
                                             <li class="page-item" aria-current="page">

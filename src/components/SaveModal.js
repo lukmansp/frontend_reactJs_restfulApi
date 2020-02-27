@@ -44,6 +44,7 @@ class saveModal extends Component {
         data.append("price", this.state.price);
         data.append("stock", this.state.stock);
         axios.post("http://localhost:9009/product", data);
+        this.props.history.push('/')
     };
     render() {
         return (
